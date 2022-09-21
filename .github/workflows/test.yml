@@ -1,0 +1,33 @@
+name: regression test
+
+on:
+    # push:
+    workflow_dispatch:
+            
+jobs:
+    checkout:
+        runs-on: self-hosted
+        steps:
+            - name: checkout source code
+              uses: actions/checkout@v2
+    build:
+        needs: checkout
+        runs-on: self-hosted
+        steps:
+            - name: run build
+              run: |
+                  ./autogen.sh
+                  ./configure
+                  make clean
+                  make -j10
+    test:
+        needs: build
+        runs-on: self-hosted
+        steps:
+            - name: run test
+              run: |
+                    make check TESTS="$(sed -n "1p" < AUTOMAKE_TEST_CASE.output)"
+                    make check TESTS="$(sed -n "2p" < AUTOMAKE_TEST_CASE.output)"
+                    make check TESTS="$(sed -n "3p" < AUTOMAKE_TEST_CASE.output)"
+                    make check TESTS="$(sed -n "4p" < AUTOMAKE_TEST_CASE.output)"
+                    make check TESTS="$(sed -n "5p" < AUTOMAKE_TEST_CASE.output)"

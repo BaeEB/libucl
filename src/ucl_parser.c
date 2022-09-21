@@ -2319,7 +2319,6 @@ ucl_parse_macro_arguments (struct ucl_parser *parser,
 			if (chunk->remain == 0) {
 				goto restore_chunk;
 			}
-			args_len ++;
 			ucl_chunk_skipc (chunk, p);
 			break;
 		case 99:
