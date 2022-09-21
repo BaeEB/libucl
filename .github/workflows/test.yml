@@ -26,8 +26,8 @@ jobs:
         steps:
             - name: run test
               run: |
-                    make check TESTS="basic.test"
-                    make check TESTS="generate.test"
-                    make check TESTS="schema.test"
-                    make check TESTS="speed.test"
-                    make check TESTS="streamline.test"
+                    make CFLAGS="--coverage -g -O0 -DDPP_ENABLE_GCOV" check TESTS="basic.test"
+                    make CFLAGS="--coverage -g -O0 -DDPP_ENABLE_GCOV" check TESTS="generate.test"
+                    make CFLAGS="--coverage -g -O0 -DDPP_ENABLE_GCOV" check TESTS="schema.test"
+                    make CFLAGS="--coverage -g -O0 -DDPP_ENABLE_GCOV" check TESTS="speed.test"
+                    make CFLAGS="--coverage -g -O0 -DDPP_ENABLE_GCOV" check TESTS="streamline.test"
