@@ -16,6 +16,7 @@ jobs:
         steps:
             - name: run build
               run: |
+                  rm -f ./Makefile
                   ./autogen.sh
                   ./configure
                   make clean
