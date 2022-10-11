@@ -1,0 +1,33 @@
+name: regression test
+
+on:
+    # push:
+    workflow_dispatch:
+            
+jobs:
+    checkout:
+        runs-on: self-hosted
+        steps:
+            - name: checkout source code
+              uses: actions/checkout@v2
+    build:
+        needs: checkout
+        runs-on: self-hosted
+        steps:
+            - name: run build
+              run: |
+                  ./autogen.sh
+                  ./configure
+                  make clean
+                  make -j10
+    test:
+        needs: build
+        runs-on: self-hosted
+        steps:
+            - name: run test
+              run: |
+                    make check TESTS=basic.test
+                    make check TESTS=generate.test
+                    make check TESTS=schema.test
+                    make check TESTS=speed.test
+                    make check TESTS=streamline.test
